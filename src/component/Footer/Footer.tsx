@@ -4,9 +4,9 @@ import { Link } from "react-router";
 const Footer = () => {
   return (
     <footer className="bg-white py-12">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex flex-col lg:flex-row items-center justify-between">
-          <div className="mb-6 lg:mb-0">
+      <div className="container mx-auto p-4 md:p-0">
+        <div className="flex flex-col lg:flex-row items-center lg:items-start justify-between text-center lg:text-left">
+          <div className="mb-6 lg:mb-0 max-w-lg mx-auto lg:mx-0">
             <h4 className="text-2xl font-bold text-[#000000] mb-2">
               Foodieland
             </h4>
@@ -14,7 +14,7 @@ const Footer = () => {
               Lorem ipsum dolor sit amet, consectetuipisicing elit
             </p>
           </div>
-          <div className="flex items-center space-x-8">
+          <div className="flex flex-wrap justify-center lg:justify-start gap-x-8 gap-y-4 max-w-lg mx-auto lg:mx-0">
             <Link to="/recipes" className="text-[#000000] hover:text-gray-900">
               Recipes
             </Link>
@@ -29,13 +29,15 @@ const Footer = () => {
             </Link>
           </div>
         </div>
+
         <hr className="my-8" />
-        <div className="flex flex-col lg:flex-row items-center justify-between text-center">
-          <div className="text-[#00000099] w-full text-sm mb-4 lg:mb-0">
+
+        <div className="flex flex-col lg:flex-row items-center justify-between text-center lg:text-left gap-4">
+          <div className="text-[#00000099] w-full lg:w-auto mx-auto text-sm">
             © 2022 Flowbase. Powered by{" "}
             <span className="text-[#FF7967]">Webflow</span>
           </div>
-          <div className="flex items-center justify-end text-right space-x-4">
+          <div className="flex items-center justify-center lg:justify-end space-x-4">
             <a
               href="https://www.facebook.com/yourpage"
               target="_blank"

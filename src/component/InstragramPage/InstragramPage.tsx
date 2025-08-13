@@ -37,7 +37,7 @@ const InstragramPage = () => {
             tempor incididunt ut labore et dolore magna aliqua.
           </p>
         </div>
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
           {instagramPosts?.map((post, index) => (
             <div key={index} className="relative group cursor-pointer bg-white">
               <div className="flex items-center gap-1">

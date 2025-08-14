@@ -11,11 +11,11 @@ export default function BlogPostPage() {
     data: articles,
     isLoading,
     isError,
-    error,
+    
   } = useGetAllArticlesQuery();
 
   if (isLoading) return <div>Loading...</div>;
-  if (isError) return <div>Error: {error.message}</div>;
+  if (isError) return <div>Product not found</div>;
 
   const article = articles?.find((ar) => String(ar.id) === id);
 

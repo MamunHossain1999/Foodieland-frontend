@@ -47,21 +47,21 @@ const BlogPage: React.FC = () => {
     {
       id: 1,
       title: "Chicken Meatballs with Green Beans",
-      image: "/api/placeholder/100/80",
+      image: "https://i.ibb.co.com/vC1gj8Tj/f6995460a4292927efc17ee09591649f7a1b7364.png",
       author: "Andreas Ryan",
       category: "Main Course",
     },
     {
       id: 2,
       title: "Traditional Bolognese Ragu",
-      image: "/api/placeholder/100/80",
+      image: "https://i.ibb.co.com/vC1gj8Tj/f6995460a4292927efc17ee09591649f7a1b7364.png",
       author: "Isabella Chen",
       category: "Pasta",
     },
     {
       id: 3,
       title: "Pork and Chive Chinese Dumplings",
-      image: "/api/placeholder/100/80",
+      image: "https://i.ibb.co.com/vC1gj8Tj/f6995460a4292927efc17ee09591649f7a1b7364.png",
       author: "Marcus Liu",
       category: "Appetizer",
     },
@@ -225,10 +225,10 @@ const BlogPage: React.FC = () => {
                     <img
                       src={recipe.image}
                       alt={recipe.title}
-                      className="w-16 h-12 rounded-lg object-cover"
+                      className="w-[180px] h-[107px] rounded-lg object-cover"
                     />
-                    <div className="flex-1">
-                      <h4 className="font-semibold text-gray-900 text-sm line-clamp-2">
+                    <div className="flex-1 space-y-1">
+                      <h4 className="font-semibold text-gray-900 text-xl line-clamp-6">
                         {recipe.title}
                       </h4>
                       <div className="flex items-center text-xs text-gray-500 mt-1">

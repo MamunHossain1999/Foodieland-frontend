@@ -4,7 +4,7 @@ const HeroSection = () => {
     return (
     <div>
             {/* Hero Section */}
-      <section className="container mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <section className="container mx-auto px-4 lg:px-0 py-12">
         {/* Left Content */}
         <div className="flex flex-col lg:flex-row items-center">
           <div className="w-full lg:w-1/2 mb-8 lg:mb-0 bg-[#E6FAFD] p-4 rounded-lg">

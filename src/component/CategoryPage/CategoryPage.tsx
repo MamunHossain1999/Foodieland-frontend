@@ -65,6 +65,17 @@ const CategoryPage = () => {
 
       {/* Recipes Section */}
       <section>
+        {/* header title */}
+       <div className="text-center mb-12 px-4">
+  <h3 className="font-semibold text-2xl sm:text-3xl md:text-4xl lg:text-[48px] text-[#000000]">
+    Simple and tasty recipes
+  </h3>
+  <p className="text-[#00000099] font-normal text-sm sm:text-base max-w-[706px] mx-auto mt-4">
+    Lorem ipsum dolor sit amet, consectetuipisicing elit, sed do eiusmod tempor
+    incididunt ut labore et dolore magna aliquut enim ad minim.
+  </p>
+</div>
+
         <h2 className="text-2xl font-semibold mb-6 text-gray-900">
           {activeCategory ? `Recipes: ${activeCategory}` : "All Recipes"}
         </h2>
@@ -72,12 +83,12 @@ const CategoryPage = () => {
           {filteredRecipes?.map((recipe) => (
             <div
               key={recipe.id}
-              className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300"
+              className="bg-[#E7F9FD] rounded-[30px] shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300"
             >
               <img
                 src={recipe.image}
                 alt={recipe.title}
-                className="w-full h-48 object-cover"
+                className="w-full h-56 object-cover p-4 rounded-[30px]"
                 loading="lazy"
               />
               <div className="p-4">

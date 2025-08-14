@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useState } from "react";
 import {
   Mail,
@@ -8,6 +9,8 @@ import {
   AlertCircle,
 } from "lucide-react";
 import contactImg from "@/assets/contactpageImg/Group 13936 (1).svg";
+import NewsLetterPage from "@/component/NewsLetterPage/NewsLetterPage";
+import RelativeProductPage from "@/component/RelativeProductPage/RelativeProductPage";
 
 interface FormData {
   name: string;
@@ -121,6 +124,7 @@ const ContactForm: React.FC = () => {
     }
   };
 
+
   if (isSubmitted) {
     return (
       <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50 flex items-center justify-center p-4">
@@ -144,208 +148,224 @@ const ContactForm: React.FC = () => {
   }
 
   return (
-    <div className="mt-16">
-      <div className="container mx-auto">
-        {/* Contact Us Header */}
-        <div className="justify-center flex">
-          <h3 className="text-4xl font-bold text-gray-800 mb-4">Contact Us</h3>
-        </div>
-        <div className="bg-white overflow-hidden">
-          <div className="grid lg:grid-cols-2">
-            {/* Chef Image Section */}
-            <div className="flex items-center overflow-hidden">
-              <img
-                src={contactImg}
-                alt="Contact Us"
-                className="w-[400px] h-[472px] object-cover rounded-3xl "
-              />
-            </div>
+    <>
+      <div className="mt-16">
+        <div className="container mx-auto">
+          {/* Contact Us Header */}
+          <div className="justify-center flex">
+            <h3 className="text-4xl font-bold text-gray-800 mb-4">
+              Contact Us
+            </h3>
+          </div>
+          <div className="bg-white overflow-hidden">
+            <div className="w-full md:flex ">
+              {/* Chef Image Section */}
+              <div className="flex items-center overflow-hidden md:w-1/2 p-4 md:p-0">
+                <img
+                  src={contactImg}
+                  alt="Contact Us"
+                  className="w-[400px] h-[472px] object-cover rounded-3xl "
+                />
+              </div>
 
-            {/* Form Section */}
-            <div className="p-8 lg:p-12">
-              <form onSubmit={handleSubmit} className="space-y-6">
-                {/* Name and Email Row */}
-                <div className="grid md:grid-cols-2 gap-6">
+              {/* Form Section */}
+              <div className="p-4 lg:p-12 w-3/3">
+                <form onSubmit={handleSubmit} className="space-y-6">
+                  {/* Name and Email Row */}
+                  <div className="grid md:grid-cols-2 gap-6">
                     {/* Name Field */}
+                    <div className="space-y-2">
+                      <label
+                        htmlFor="name"
+                        className="block text-sm font-semibold text-gray-700 uppercase tracking-wide"
+                      >
+                        Name
+                      </label>
+                      <div className="relative">
+                        <User className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
+                        <input
+                          type="text"
+                          id="name"
+                          name="name"
+                          value={formData.name}
+                          onChange={handleInputChange}
+                          placeholder="Enter your name..."
+                          className={`w-full pl-12 pr-4 py-3 bg-gray-50 border rounded-xl focus:outline-none focus:ring-2 transition-all duration-300 ${
+                            errors.name
+                              ? "border-red-300 focus:ring-red-200 focus:border-red-500"
+                              : "border-gray-200 focus:ring-blue-200 focus:border-blue-500 hover:border-gray-300"
+                          }`}
+                        />
+                        {errors.name && (
+                          <div className="flex items-center mt-1 text-red-600 text-sm">
+                            <AlertCircle className="w-4 h-4 mr-1" />
+                            {errors.name}
+                          </div>
+                        )}
+                      </div>
+                    </div>
+
+                    {/* Email Field */}
+                    <div className="space-y-2">
+                      <label
+                        htmlFor="email"
+                        className="block text-sm font-semibold text-gray-700 uppercase tracking-wide"
+                      >
+                        Email Address
+                      </label>
+                      <div className="relative">
+                        <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
+                        <input
+                          type="email"
+                          id="email"
+                          name="email"
+                          value={formData.email}
+                          onChange={handleInputChange}
+                          placeholder="Your email address..."
+                          className={`w-full pl-12 pr-4 py-3 bg-gray-50 border rounded-xl focus:outline-none focus:ring-2 transition-all duration-300 ${
+                            errors.email
+                              ? "border-red-300 focus:ring-red-200 focus:border-red-500"
+                              : "border-gray-200 focus:ring-blue-200 focus:border-blue-500 hover:border-gray-300"
+                          }`}
+                        />
+                        {errors.email && (
+                          <div className="flex items-center mt-1 text-red-600 text-sm">
+                            <AlertCircle className="w-4 h-4 mr-1" />
+                            {errors.email}
+                          </div>
+                        )}
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Subject and Enquiry Type Row */}
+                  <div className="grid md:grid-cols-2 gap-6">
+                    <div className="space-y-2">
+                      <label
+                        htmlFor="subject"
+                        className="block text-sm font-semibold text-gray-700 uppercase tracking-wide"
+                      >
+                        Subject
+                      </label>
+                      <div className="relative">
+                        <input
+                          type="text"
+                          id="subject"
+                          name="subject"
+                          value={formData.subject}
+                          onChange={handleInputChange}
+                          placeholder="Enter subject..."
+                          className={`w-full px-4 py-3 bg-gray-50 border rounded-xl focus:outline-none focus:ring-2 transition-all duration-300 ${
+                            errors.subject
+                              ? "border-red-300 focus:ring-red-200 focus:border-red-500"
+                              : "border-gray-200 focus:ring-blue-200 focus:border-blue-500 hover:border-gray-300"
+                          }`}
+                        />
+                        {errors.subject && (
+                          <div className="flex items-center mt-1 text-red-600 text-sm">
+                            <AlertCircle className="w-4 h-4 mr-1" />
+                            {errors.subject}
+                          </div>
+                        )}
+                      </div>
+                    </div>
+
+                    <div className="space-y-2">
+                      <label
+                        htmlFor="enquiryType"
+                        className="block text-sm font-semibold text-gray-700 uppercase tracking-wide"
+                      >
+                        Enquiry Type
+                      </label>
+                      <select
+                        id="enquiryType"
+                        name="enquiryType"
+                        value={formData.enquiryType}
+                        onChange={handleInputChange}
+                        className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-200 focus:border-blue-500 hover:border-gray-300 transition-all duration-300"
+                      >
+                        {enquiryTypes.map((type) => (
+                          <option key={type} value={type}>
+                            {type}
+                          </option>
+                        ))}
+                      </select>
+                    </div>
+                  </div>
+
+                  {/* Message */}
                   <div className="space-y-2">
                     <label
-                      htmlFor="name"
+                      htmlFor="message"
                       className="block text-sm font-semibold text-gray-700 uppercase tracking-wide"
                     >
-                      Name
+                      Messages
                     </label>
                     <div className="relative">
-                      <User className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
-                      <input
-                        type="text"
-                        id="name"
-                        name="name"
-                        value={formData.name}
+                      <MessageSquare className="absolute left-3 top-4 text-gray-400 w-5 h-5" />
+                      <textarea
+                        id="message"
+                        name="message"
+                        value={formData.message}
                         onChange={handleInputChange}
-                        placeholder="Enter your name..."
-                        className={`w-full pl-12 pr-4 py-3 bg-gray-50 border rounded-xl focus:outline-none focus:ring-2 transition-all duration-300 ${
-                          errors.name
+                        placeholder="Enter your messages..."
+                        rows={5}
+                        className={`w-full pl-12 pr-4 py-3 bg-gray-50 border rounded-xl focus:outline-none focus:ring-2 resize-none transition-all duration-300 ${
+                          errors.message
                             ? "border-red-300 focus:ring-red-200 focus:border-red-500"
                             : "border-gray-200 focus:ring-blue-200 focus:border-blue-500 hover:border-gray-300"
                         }`}
                       />
-                      {errors.name && (
+                      {errors.message && (
                         <div className="flex items-center mt-1 text-red-600 text-sm">
                           <AlertCircle className="w-4 h-4 mr-1" />
-                          {errors.name}
+                          {errors.message}
                         </div>
                       )}
                     </div>
                   </div>
 
-                      {/* Email Field */}
-                  <div className="space-y-2">
-                    <label
-                      htmlFor="email"
-                      className="block text-sm font-semibold text-gray-700 uppercase tracking-wide"
-                    >
-                      Email Address
-                    </label>
-                    <div className="relative">
-                      <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
-                      <input
-                        type="email"
-                        id="email"
-                        name="email"
-                        value={formData.email}
-                        onChange={handleInputChange}
-                        placeholder="Your email address..."
-                        className={`w-full pl-12 pr-4 py-3 bg-gray-50 border rounded-xl focus:outline-none focus:ring-2 transition-all duration-300 ${
-                          errors.email
-                            ? "border-red-300 focus:ring-red-200 focus:border-red-500"
-                            : "border-gray-200 focus:ring-blue-200 focus:border-blue-500 hover:border-gray-300"
-                        }`}
-                      />
-                      {errors.email && (
-                        <div className="flex items-center mt-1 text-red-600 text-sm">
-                          <AlertCircle className="w-4 h-4 mr-1" />
-                          {errors.email}
-                        </div>
-                      )}
-                    </div>
-                  </div>
-                </div>
-
-                {/* Subject and Enquiry Type Row */}
-                <div className="grid md:grid-cols-2 gap-6">
-                  <div className="space-y-2">
-                    <label
-                      htmlFor="subject"
-                      className="block text-sm font-semibold text-gray-700 uppercase tracking-wide"
-                    >
-                      Subject
-                    </label>
-                    <div className="relative">
-                      <input
-                        type="text"
-                        id="subject"
-                        name="subject"
-                        value={formData.subject}
-                        onChange={handleInputChange}
-                        placeholder="Enter subject..."
-                        className={`w-full px-4 py-3 bg-gray-50 border rounded-xl focus:outline-none focus:ring-2 transition-all duration-300 ${
-                          errors.subject
-                            ? "border-red-300 focus:ring-red-200 focus:border-red-500"
-                            : "border-gray-200 focus:ring-blue-200 focus:border-blue-500 hover:border-gray-300"
-                        }`}
-                      />
-                      {errors.subject && (
-                        <div className="flex items-center mt-1 text-red-600 text-sm">
-                          <AlertCircle className="w-4 h-4 mr-1" />
-                          {errors.subject}
-                        </div>
-                      )}
-                    </div>
-                  </div>
-
-                  <div className="space-y-2">
-                    <label
-                      htmlFor="enquiryType"
-                      className="block text-sm font-semibold text-gray-700 uppercase tracking-wide"
-                    >
-                      Enquiry Type
-                    </label>
-                    <select
-                      id="enquiryType"
-                      name="enquiryType"
-                      value={formData.enquiryType}
-                      onChange={handleInputChange}
-                      className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-200 focus:border-blue-500 hover:border-gray-300 transition-all duration-300"
-                    >
-                      {enquiryTypes.map((type) => (
-                        <option key={type} value={type}>
-                          {type}
-                        </option>
-                      ))}
-                    </select>
-                  </div>
-                </div>
-
-                {/* Message */}
-                <div className="space-y-2">
-                  <label
-                    htmlFor="message"
-                    className="block text-sm font-semibold text-gray-700 uppercase tracking-wide"
+                  {/* Submit Button */}
+                  <button
+                    type="submit"
+                    disabled={isSubmitting}
+                    className={`w-full py-4 px-6 rounded-xl font-semibold text-white text-lg transition-all duration-300 transform ${
+                      isSubmitting
+                        ? "bg-gray-400 cursor-not-allowed"
+                        : "bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700"
+                    }`}
                   >
-                    Messages
-                  </label>
-                  <div className="relative">
-                    <MessageSquare className="absolute left-3 top-4 text-gray-400 w-5 h-5" />
-                    <textarea
-                      id="message"
-                      name="message"
-                      value={formData.message}
-                      onChange={handleInputChange}
-                      placeholder="Enter your messages..."
-                      rows={5}
-                      className={`w-full pl-12 pr-4 py-3 bg-gray-50 border rounded-xl focus:outline-none focus:ring-2 resize-none transition-all duration-300 ${
-                        errors.message
-                          ? "border-red-300 focus:ring-red-200 focus:border-red-500"
-                          : "border-gray-200 focus:ring-blue-200 focus:border-blue-500 hover:border-gray-300"
-                      }`}
-                    />
-                    {errors.message && (
-                      <div className="flex items-center mt-1 text-red-600 text-sm">
-                        <AlertCircle className="w-4 h-4 mr-1" />
-                        {errors.message}
+                    {isSubmitting ? (
+                      <div className="flex items-center justify-center">
+                        <div className="animate-spin rounded-full h-5 w-5 border-2 border-white border-t-transparent mr-2"></div>
+                        Sending...
+                      </div>
+                    ) : (
+                      <div className="flex items-center justify-center">
+                        <Send className="w-5 h-5 mr-2" />
+                        Send Message
                       </div>
                     )}
-                  </div>
-                </div>
-
-                {/* Submit Button */}
-                <button
-                  type="submit"
-                  disabled={isSubmitting}
-                  className={`w-full py-4 px-6 rounded-xl font-semibold text-white text-lg transition-all duration-300 transform ${
-                    isSubmitting
-                      ? "bg-gray-400 cursor-not-allowed"
-                      : "bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700"
-                  }`}
-                >
-                  {isSubmitting ? (
-                    <div className="flex items-center justify-center">
-                      <div className="animate-spin rounded-full h-5 w-5 border-2 border-white border-t-transparent mr-2"></div>
-                      Sending...
-                    </div>
-                  ) : (
-                    <div className="flex items-center justify-center">
-                      <Send className="w-5 h-5 mr-2" />
-                      Send Message
-                    </div>
-                  )}
-                </button>
-              </form>
+                  </button>
+                </form>
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
+      <NewsLetterPage />
+
+      {/* <RecipeList recipes={recipes} /> */}
+      <div className="container mx-auto px-4 md:px-0  my-16 ">
+        <h2 className="text-3xl text-center mb-5 font-bold text-gray-800 ">
+          Check out the delicious recipes
+        </h2>
+
+        <div>
+          <RelativeProductPage />
+        </div>
+      </div>
+    </>
   );
 };
 

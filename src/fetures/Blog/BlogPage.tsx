@@ -2,10 +2,9 @@
 import React, { useState } from "react";
 import { Search, Calendar, User, ChefHat } from "lucide-react";
 import { useGetAllArticlesQuery } from "./blogApi";
-import  Article  from '@/assets/blogImg/Rectangle 14 (2).jpg';
+import Article from "@/assets/blogImg/Rectangle 14 (2).jpg";
 import NewsLetterPage from "@/component/NewsLetterPage/NewsLetterPage";
-
-
+import { useNavigate } from "react-router";
 
 interface Recipe {
   id: number;
@@ -16,6 +15,7 @@ interface Recipe {
 }
 
 const BlogPage: React.FC = () => {
+  const navigate = useNavigate();
   const [searchQuery, setSearchQuery] = useState<string>("");
 
   //   pagination function
@@ -47,21 +47,24 @@ const BlogPage: React.FC = () => {
     {
       id: 1,
       title: "Chicken Meatballs with Green Beans",
-      image: "https://i.ibb.co.com/vC1gj8Tj/f6995460a4292927efc17ee09591649f7a1b7364.png",
+      image:
+        "https://i.ibb.co.com/vC1gj8Tj/f6995460a4292927efc17ee09591649f7a1b7364.png",
       author: "Andreas Ryan",
       category: "Main Course",
     },
     {
       id: 2,
       title: "Traditional Bolognese Ragu",
-      image: "https://i.ibb.co.com/vC1gj8Tj/f6995460a4292927efc17ee09591649f7a1b7364.png",
+      image:
+        "https://i.ibb.co.com/vC1gj8Tj/f6995460a4292927efc17ee09591649f7a1b7364.png",
       author: "Isabella Chen",
       category: "Pasta",
     },
     {
       id: 3,
       title: "Pork and Chive Chinese Dumplings",
-      image: "https://i.ibb.co.com/vC1gj8Tj/f6995460a4292927efc17ee09591649f7a1b7364.png",
+      image:
+        "https://i.ibb.co.com/vC1gj8Tj/f6995460a4292927efc17ee09591649f7a1b7364.png",
       author: "Marcus Liu",
       category: "Appetizer",
     },
@@ -79,8 +82,11 @@ const BlogPage: React.FC = () => {
   const indexOfFirstItem = indexOfLastItem - ItemPerPage;
   const currentItem = filteredArticles.slice(indexOfFirstItem, indexOfLastItem);
   const totalPages = Math.ceil(filteredArticles.length / ItemPerPage);
-  const pageNumbers = Array.from({length: totalPages}, (_, i) =>i + 1);
+  const pageNumbers = Array.from({ length: totalPages }, (_, i) => i + 1);
 
+  const handleCardClick = (id: number) => {
+    navigate(`/blog/${id}`);
+  };
   return (
     <div className="min-h-screen bg-white">
       {/* Header */}
@@ -125,43 +131,45 @@ const BlogPage: React.FC = () => {
           <div className="lg:col-span-2">
             <div className="space-y-6">
               {currentItem?.map((article) => (
-                <article
-                  key={article.id}
-                  className="rounded-xl shadow-sm overflow-hidden"
-                >
-                  <div className="flex flex-col md:flex-row">
-                    <div className="md:w-64 h-48 md:h-auto">
-                      <img
-                        src={article.image}
-                        alt={article.title}
-                        className="w-full h-full object-cover"
-                      />
-                    </div>
-                    <div className="flex-1 p-6">
-                      <div className="mb-3">
-                        <span className="inline-block bg-green-100 text-green-800 text-xs font-medium px-2.5 py-0.5 rounded-full">
-                          {article.category}
-                        </span>
-                      </div>
-                      <h2 className="text-xl font-bold text-gray-900 mb-3 hover:text-green-600 cursor-pointer transition-colors">
-                        {article.title}
-                      </h2>
-                      <p className="text-gray-600 mb-4 line-clamp-3">
-                        {article.excerpt}
-                      </p>
-                      <div className="flex items-center text-sm text-gray-500">
+                <button onClick={() => handleCardClick(article.id)} className="cursor-pointer">
+                  <article
+                    key={article.id}
+                    className="rounded-xl shadow-sm overflow-hidden"
+                  >
+                    <div className="flex flex-col md:flex-row">
+                      <div className="md:w-64 h-48 md:h-auto">
                         <img
-                          src={article.author.avatar}
-                          alt={article.author.name}
-                          className="w-8 h-8 rounded-full mr-3"
+                          src={article.image}
+                          alt={article.title}
+                          className="w-full h-full object-cover"
                         />
-                        <span className="mr-4">{article.author.name}</span>
-                        <Calendar size={14} className="mr-1" />
-                        <span>{article.date}</span>
+                      </div>
+                      <div className="flex-1 p-6">
+                        <div className="mb-3">
+                          <span className="inline-block bg-green-100 text-green-800 text-xs font-medium px-2.5 py-0.5 rounded-full">
+                            {article.category}
+                          </span>
+                        </div>
+                        <h2 className="text-xl font-bold text-gray-900 mb-3 transition-colors">
+                          {article.title}
+                        </h2>
+                        <p className="text-gray-600 mb-4 line-clamp-3">
+                          {article.excerpt}
+                        </p>
+                        <div className="flex items-center justify-center text-sm text-gray-500">
+                          <img
+                            src={article.author.avatar}
+                            alt={article.author.name}
+                            className="w-8 h-8 rounded-full mr-3"
+                          />
+                          <span className="mr-4">{article.author.name}</span>
+                          <Calendar size={14} className="mr-1" />
+                          <span>{article.date}</span>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                </article>
+                  </article>
+                </button>
               ))}
             </div>
 
@@ -239,14 +247,13 @@ const BlogPage: React.FC = () => {
                   </div>
                 ))}
               </div>
-              <img src={Article} alt="adds"  />
+              <img src={Article} alt="adds" className="mt-10" />
             </div>
           </div>
         </div>
       </div>
-
       <div>
-        <NewsLetterPage/>
+        <NewsLetterPage />
       </div>
     </div>
   );

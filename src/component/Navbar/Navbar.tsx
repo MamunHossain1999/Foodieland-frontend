@@ -2,7 +2,6 @@ import { useState, useEffect } from "react";
 import { Facebook, Instagram, Twitter, Menu, X } from "lucide-react";
 import { Link, useLocation } from "react-router";
 
-
 const menuItems = [
   { label: "Home", href: "/" },
   { label: "Recipes", href: "/recipes" },
@@ -53,18 +52,42 @@ const Navbar = () => {
 
           {/* Social Icons */}
           <div className="hidden md:flex items-center space-x-4">
-            <Facebook className="w-5 h-5 text-gray-600 hover:text-blue-600 cursor-pointer" />
-            <Twitter className="w-5 h-5 text-gray-600 hover:text-blue-400 cursor-pointer" />
-            <Instagram className="w-5 h-5 text-gray-600 hover:text-pink-600 cursor-pointer" />
+            <div className="flex gap-4">
+              <Link to="https://www.facebook.com/">
+                <Facebook className="w-5 h-5 text-gray-600 hover:text-blue-600 cursor-pointer" />
+              </Link>
+
+              <Link to="https://twitter.com/">
+                <Twitter className="w-5 h-5 text-gray-600 hover:text-blue-400 cursor-pointer" />
+              </Link>
+
+              <Link to="https://www.instagram.com/">
+                <Instagram className="w-5 h-5 text-gray-600 hover:text-pink-600 cursor-pointer" />
+              </Link>
+            </div>
           </div>
 
           {/* Mobile Menu Button */}
           <div className="md:hidden flex items-center space-x-4">
-            <Facebook className="w-5 h-5 text-gray-600 hover:text-blue-600 cursor-pointer" />
-            <Twitter className="w-5 h-5 text-gray-600 hover:text-blue-400 cursor-pointer" />
-            <Instagram className="w-5 h-5 text-gray-600 hover:text-pink-600 cursor-pointer" />
+            <div className="flex gap-4">
+              <Link to="/facebook">
+                <Facebook className="w-5 h-5 text-gray-600 hover:text-blue-600 cursor-pointer" />
+              </Link>
+
+              <Link to="/twitter">
+                <Twitter className="w-5 h-5 text-gray-600 hover:text-blue-400 cursor-pointer" />
+              </Link>
+
+              <Link to="/instagram">
+                <Instagram className="w-5 h-5 text-gray-600 hover:text-pink-600 cursor-pointer" />
+              </Link>
+            </div>
             <button onClick={() => setIsOpen(!isOpen)} aria-label="Toggle menu">
-              {isOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+              {isOpen ? (
+                <X className="w-6 h-6" />
+              ) : (
+                <Menu className="w-6 h-6" />
+              )}
             </button>
           </div>
         </div>

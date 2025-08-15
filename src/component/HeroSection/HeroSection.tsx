@@ -1,12 +1,16 @@
 
-
+import banner from "@/assets/banner.png"
 const HeroSection = () => {
     return (
-    <div>
+    <div className="container mx-auto px-4 lg:px-0 py-12">
+       <img src={banner}
+                alt="Chef"
+                className="w-full"
+              />
             {/* Hero Section */}
-      <section className="container mx-auto px-4 lg:px-0 py-12">
+      {/* <section className="container mx-auto px-4 lg:px-0 py-12"> */}
         {/* Left Content */}
-        <div className="flex flex-col lg:flex-row items-center">
+        {/* <div className="flex flex-col lg:flex-row items-center">
           <div className="w-full lg:w-1/2 mb-8 lg:mb-0 bg-[#E6FAFD] p-4 rounded-lg">
             <div className="bg-white px-4 py-2 rounded-full inline-block mb-4">
               <span className="text-sm font-medium text-gray-700">🔥 Hot Recipes</span>
@@ -27,7 +31,7 @@ const HeroSection = () => {
             </div>
             <div className="flex items-center space-x-4">
               <img 
-                src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=50&h=50&fit=crop&crop=face" 
+                src={banner}
                 alt="Chef"
                 className="w-12 h-12 rounded-full object-cover"
               />
@@ -39,9 +43,9 @@ const HeroSection = () => {
                 View Recipes →
               </button>
             </div>
-          </div>
+          </div> */}
           {/* right image */}
-          <div className="lg:w-1/2 relative">
+          {/* <div className="lg:w-1/2 relative">
             <div className="relative">
               <img 
                 src="https://images.unsplash.com/photo-1608039755401-742074f0548d?w=500&h=500&fit=crop" 
@@ -51,9 +55,9 @@ const HeroSection = () => {
               <div className="absolute -right-4 -top-4 w-20 h-20 bg-yellow-400 rounded-full opacity-20"></div>
               <div className="absolute -left-8 bottom-8 w-16 h-16 bg-red-400 rounded-full opacity-20"></div>
             </div>
-          </div>
-        </div>
-      </section>
+          </div> */}
+        {/* </div>
+      </section> */}
      </div>
     );
 };

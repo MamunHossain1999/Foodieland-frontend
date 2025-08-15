@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Heart,
   Users,
@@ -16,6 +16,8 @@ import {
   Play,
 } from "lucide-react";
 import CountUp from "react-countup";
+import AOS from "aos";
+import "aos/dist/aos.css";
 
 interface TeamMember {
   name: string;
@@ -34,6 +36,14 @@ interface Stat {
 
 const RecipeAboutPage: React.FC = () => {
   const [activeTab, setActiveTab] = useState<string>("story");
+
+  useEffect(() => {
+    AOS.init({
+      duration: 1000,
+      easing: "ease-in-out",
+      once: true,
+    });
+  }, []);
 
   const stats: Stat[] = [
     {
@@ -156,7 +166,10 @@ const RecipeAboutPage: React.FC = () => {
   return (
     <div className="min-h-screen bg-gradient-to-br from-orange-50 via-yellow-50 to-red-50">
       {/* Hero Section */}
-      <section className="relative py-20 bg-gradient-to-r from-red-500 via-orange-500 to-yellow-500 text-white overflow-hidden">
+      <section
+        className="relative py-20 bg-gradient-to-r from-red-500 via-orange-500 to-yellow-500 text-white overflow-hidden"
+        data-aos="fade-up"
+      >
         <div className="absolute inset-0 bg-black bg-opacity-30"></div>
         <div className="absolute top-10 right-10 opacity-20">
           <ChefHat size={150} className="animate-pulse" />
@@ -168,9 +181,7 @@ const RecipeAboutPage: React.FC = () => {
         <div className="relative max-w-6xl mx-auto px-6 text-center">
           <div className="inline-flex items-center bg-white bg-opacity-20 rounded-full px-6 py-2 mb-6">
             <Heart size={20} className="mr-2 text-pink-300" />
-            <span className="text-sm text-gray-500 font-medium">
-              Made with Love
-            </span>
+            <span className="text-sm text-gray-500 font-medium">Made with Love</span>
           </div>
 
           <h1 className="text-5xl md:text-7xl font-bold mb-6">
@@ -194,27 +205,18 @@ const RecipeAboutPage: React.FC = () => {
       </section>
 
       {/* Stats Section */}
-
-      <section className="py-16 bg-white">
+      <section className="py-16 bg-white" data-aos="fade-up">
         <div className="max-w-6xl mx-auto px-6">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
             {stats.map((stat, index) => (
-              <div key={index} className="text-center group">
+              <div key={index} className="text-center group" data-aos="zoom-in" data-aos-delay={index * 200}>
                 <div className="bg-gradient-to-br from-orange-100 to-red-100 w-20 h-20 rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform">
                   <stat.icon size={32} className="text-orange-600" />
                 </div>
                 <h3 className="text-3xl font-bold text-gray-900 mb-2">
-                  <CountUp
-                    start={0}
-                    end={stat.number}
-                    duration={2}
-                    separator=","
-                    suffix="+"
-                  />
+                  <CountUp start={0} end={stat.number} duration={2} separator="," suffix="+" />
                 </h3>
-                <p className="text-lg font-semibold text-gray-800 mb-1">
-                  {stat.label}
-                </p>
+                <p className="text-lg font-semibold text-gray-800 mb-1">{stat.label}</p>
                 <p className="text-sm text-gray-600">{stat.description}</p>
               </div>
             ))}
@@ -253,58 +255,33 @@ const RecipeAboutPage: React.FC = () => {
           <div className="min-h-96">
             {activeTab === "story" && (
               <div className="grid lg:grid-cols-2 gap-12 items-center">
-                <div>
-                  <h2 className="text-4xl font-bold text-gray-900 mb-6">
-                    How It All Started
-                  </h2>
+                <div data-aos="fade-right">
+                  <h2 className="text-4xl font-bold text-gray-900 mb-6">How It All Started</h2>
                   <p className="text-lg text-gray-700 mb-6 leading-relaxed">
-                    It all began in 2018 when our founder Sarah discovered her
-                    grandmother's handwritten recipe collection in an old wooden
-                    box. Each recipe told a story, carried memories, and brought
-                    families together.
+                    It all began in 2018 when our founder Sarah discovered her grandmother's handwritten recipe collection in an old wooden box...
                   </p>
-                  <p className="text-lg text-gray-700 mb-6 leading-relaxed">
-                    What started as a simple blog to preserve these family
-                    treasures has grown into a global community of passionate
-                    home cooks, professional chefs, and food enthusiasts from
-                    over 120 countries.
-                  </p>
-                  <p className="text-lg text-gray-700 mb-8 leading-relaxed">
-                    Today, we're not just sharing recipes – we're preserving
-                    culinary traditions, fostering creativity, and helping
-                    people create their own delicious memories, one meal at a
-                    time.
-                  </p>
-
                   {/* Timeline */}
                   <div className="space-y-6">
                     {milestones.map((milestone, index) => (
-                      <div key={index} className="flex items-start space-x-4">
+                      <div key={index} className="flex items-start space-x-4" data-aos="fade-up" data-aos-delay={index * 200}>
                         <div className="bg-gradient-to-br from-orange-400 to-red-500 text-white w-12 h-12 rounded-full flex items-center justify-center font-bold text-sm">
                           {milestone.year.slice(-2)}
                         </div>
                         <div>
-                          <h4 className="font-semibold text-gray-900 mb-1">
-                            {milestone.title}
-                          </h4>
-                          <p className="text-gray-600 text-sm">
-                            {milestone.description}
-                          </p>
+                          <h4 className="font-semibold text-gray-900 mb-1">{milestone.title}</h4>
+                          <p className="text-gray-600 text-sm">{milestone.description}</p>
                         </div>
                       </div>
                     ))}
                   </div>
                 </div>
 
-                <div className="relative">
+                <div className="relative" data-aos="fade-left">
                   <div className="bg-gradient-to-br from-orange-400 to-red-500 rounded-3xl p-8 text-white text-center">
                     <Camera size={60} className="mx-auto mb-6" />
-                    <h3 className="text-2xl font-bold mb-4">
-                      Behind the Scenes
-                    </h3>
+                    <h3 className="text-2xl font-bold mb-4">Behind the Scenes</h3>
                     <p className="mb-6">
-                      Get an exclusive look at our test kitchen where all the
-                      magic happens!
+                      Get an exclusive look at our test kitchen where all the magic happens!
                     </p>
                     <button className="bg-white text-orange-600 px-6 py-3 rounded-full font-semibold hover:bg-orange-50 transition-colors">
                       Take a Virtual Tour
@@ -317,15 +294,11 @@ const RecipeAboutPage: React.FC = () => {
             )}
 
             {activeTab === "mission" && (
-              <div>
+              <div data-aos="fade-up">
                 <div className="text-center mb-16">
-                  <h2 className="text-4xl font-bold text-gray-900 mb-6">
-                    Our Mission & Values
-                  </h2>
+                  <h2 className="text-4xl font-bold text-gray-900 mb-6">Our Mission & Values</h2>
                   <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-                    We're on a mission to make cooking accessible, enjoyable,
-                    and meaningful for everyone, while preserving culinary
-                    traditions and fostering innovation.
+                    We're on a mission to make cooking accessible, enjoyable, and meaningful...
                   </p>
                 </div>
 
@@ -334,60 +307,40 @@ const RecipeAboutPage: React.FC = () => {
                     <div
                       key={index}
                       className="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-shadow"
+                      data-aos="zoom-in"
+                      data-aos-delay={index * 200}
                     >
                       <div className="bg-gradient-to-br from-orange-100 to-red-100 w-16 h-16 rounded-2xl flex items-center justify-center mb-6">
                         <value.icon size={28} className="text-orange-600" />
                       </div>
-                      <h3 className="text-xl font-bold text-gray-900 mb-4">
-                        {value.title}
-                      </h3>
-                      <p className="text-gray-700 leading-relaxed">
-                        {value.description}
-                      </p>
+                      <h3 className="text-xl font-bold text-gray-900 mb-4">{value.title}</h3>
+                      <p className="text-gray-700 leading-relaxed">{value.description}</p>
                     </div>
                   ))}
                 </div>
 
-                {/* Mission Statement */}
-                <div className="bg-gradient-to-r from-orange-500 to-red-500 rounded-3xl p-12 text-white text-center">
+                <div className="bg-gradient-to-r from-orange-500 to-red-500 rounded-3xl p-12 text-white text-center" data-aos="fade-up">
                   <TrendingUp size={60} className="mx-auto mb-6" />
-                  <h3 className="text-3xl font-bold mb-6">
-                    Our Vision for the Future
-                  </h3>
+                  <h3 className="text-3xl font-bold mb-6">Our Vision for the Future</h3>
                   <p className="text-xl text-orange-100 max-w-4xl mx-auto mb-8">
-                    To become the world's most trusted and inspiring culinary
-                    platform, where every cook feels empowered to explore,
-                    create, and share their passion for food while building
-                    lasting connections with others.
+                    To become the world's most trusted and inspiring culinary platform...
                   </p>
                   <div className="flex flex-wrap justify-center gap-4">
-                    <span className="bg-white bg-opacity-20 px-4 py-2 rounded-full text-sm">
-                      Sustainability
-                    </span>
-                    <span className="bg-white bg-opacity-20 px-4 py-2 rounded-full text-sm">
-                      Accessibility
-                    </span>
-                    <span className="bg-white bg-opacity-20 px-4 py-2 rounded-full text-sm">
-                      Innovation
-                    </span>
-                    <span className="bg-white bg-opacity-20 px-4 py-2 rounded-full text-sm">
-                      Community
-                    </span>
+                    <span className="bg-white bg-opacity-20 px-4 py-2 rounded-full text-sm">Sustainability</span>
+                    <span className="bg-white bg-opacity-20 px-4 py-2 rounded-full text-sm">Accessibility</span>
+                    <span className="bg-white bg-opacity-20 px-4 py-2 rounded-full text-sm">Innovation</span>
+                    <span className="bg-white bg-opacity-20 px-4 py-2 rounded-full text-sm">Community</span>
                   </div>
                 </div>
               </div>
             )}
 
             {activeTab === "team" && (
-              <div>
+              <div data-aos="fade-up">
                 <div className="text-center mb-16">
-                  <h2 className="text-4xl font-bold text-gray-900 mb-6">
-                    Meet Our Culinary Experts
-                  </h2>
+                  <h2 className="text-4xl font-bold text-gray-900 mb-6">Meet Our Culinary Experts</h2>
                   <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-                    Behind every great recipe is a passionate team of culinary
-                    professionals, nutritionists, and food enthusiasts working
-                    to bring you the best content.
+                    Behind every great recipe is a passionate team...
                   </p>
                 </div>
 
@@ -396,37 +349,23 @@ const RecipeAboutPage: React.FC = () => {
                     <div
                       key={index}
                       className="bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-all transform hover:-translate-y-2"
+                      data-aos="fade-up"
+                      data-aos-delay={index * 200}
                     >
                       <div className="relative">
-                        <img
-                          src={member.image}
-                          alt={member.name}
-                          className="w-full h-64 object-cover"
-                        />
+                        <img src={member.image} alt={member.name} className="w-full h-64 object-cover" />
                         <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-60"></div>
                         <div className="absolute bottom-4 left-4 text-white">
-                          <span className="bg-orange-500 px-3 py-1 rounded-full text-xs font-medium">
-                            {member.specialty}
-                          </span>
+                          <span className="bg-orange-500 px-3 py-1 rounded-full text-xs font-medium">{member.specialty}</span>
                         </div>
                       </div>
                       <div className="p-6">
-                        <h3 className="text-xl font-bold text-gray-900 mb-2">
-                          {member.name}
-                        </h3>
-                        <p className="text-orange-600 font-semibold mb-3">
-                          {member.role}
-                        </p>
-                        <p className="text-gray-600 text-sm leading-relaxed">
-                          {member.bio}
-                        </p>
+                        <h3 className="text-xl font-bold text-gray-900 mb-2">{member.name}</h3>
+                        <p className="text-orange-600 font-semibold mb-3">{member.role}</p>
+                        <p className="text-gray-600 text-sm leading-relaxed">{member.bio}</p>
                         <div className="flex justify-center mt-4 space-x-1">
                           {[1, 2, 3, 4, 5].map((star) => (
-                            <Star
-                              key={star}
-                              size={16}
-                              className="text-yellow-400 fill-current"
-                            />
+                            <Star key={star} size={16} className="text-yellow-400 fill-current" />
                           ))}
                         </div>
                       </div>
@@ -435,15 +374,12 @@ const RecipeAboutPage: React.FC = () => {
                 </div>
 
                 {/* Join Team CTA */}
-                <div className="mt-16 text-center">
+                <div className="mt-16 text-center" data-aos="fade-up">
                   <div className="bg-gradient-to-br from-yellow-400 via-orange-500 to-red-500 rounded-3xl p-12 text-white">
                     <Users size={60} className="mx-auto mb-6" />
-                    <h3 className="text-3xl font-bold mb-4">
-                      Want to Join Our Team?
-                    </h3>
+                    <h3 className="text-3xl font-bold mb-4">Want to Join Our Team?</h3>
                     <p className="text-xl text-orange-100 mb-8 max-w-2xl mx-auto">
-                      We're always looking for talented individuals who share
-                      our passion for food and community.
+                      We're always looking for talented individuals who share our passion for food and community.
                     </p>
                     <button className="bg-white text-orange-600 px-8 py-4 rounded-full font-semibold hover:bg-orange-50 transition-all transform hover:scale-105">
                       View Open Positions
@@ -457,15 +393,12 @@ const RecipeAboutPage: React.FC = () => {
       </section>
 
       {/* CTA Section */}
-      <section className="py-16 bg-gray-900 text-white">
+      <section className="py-16 bg-gray-900 text-white" data-aos="fade-up">
         <div className="max-w-4xl mx-auto text-center px-6">
           <Clock size={60} className="mx-auto mb-6 text-orange-400" />
-          <h2 className="text-3xl font-bold mb-6">
-            Ready to Start Your Culinary Journey?
-          </h2>
+          <h2 className="text-3xl font-bold mb-6">Ready to Start Your Culinary Journey?</h2>
           <p className="text-xl text-gray-300 mb-10">
-            Join thousands of home cooks who have transformed their kitchens
-            into places of joy, creativity, and connection.
+            Join thousands of home cooks who have transformed their kitchens into places of joy, creativity, and connection.
           </p>
           <div className="flex flex-wrap justify-center gap-6">
             <button className="bg-gradient-to-r from-orange-500 to-red-500 px-8 py-4 rounded-full font-semibold hover:from-orange-600 hover:to-red-600 transition-all transform hover:scale-105">

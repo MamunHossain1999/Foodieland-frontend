@@ -1,0 +1,147 @@
+[
+  {
+    "id": 1,
+    "title": "Tropical Fruit Salad",
+    "image": "https://images.unsplash.com/photo-1546793665-c74683f339c1?w=300&h=200&fit=crop",
+    "rating": 4.9,
+    "time": "30 Minutes",
+    "servings": 2,
+    "category": "Breakfast",
+    "author": { "name": "Jane Doe", "avatar": "https://randomuser.me/api/portraits/women/44.jpg" },
+    "ingredients": ["1 cup mango", "1 cup pineapple", "1 banana", "1 tbsp chia seeds"],
+    "steps": ["Chop all fruits", "Mix in a bowl", "Add chia seeds", "Serve chilled"]
+  },
+  {
+    "id": 2,
+    "title": "Avocado Toast with Eggs",
+    "image": "https://images.unsplash.com/photo-1562967916-eb82221dfb36?w=300&h=200&fit=crop",
+    "rating": 4.8,
+    "time": "20 Minutes",
+    "servings": 1,
+    "category": "Breakfast",
+    "author": { "name": "Alice Johnson", "avatar": "https://randomuser.me/api/portraits/women/22.jpg" },
+    "ingredients": ["1 slice bread", "1 avocado", "1 egg", "Salt & Pepper"],
+    "steps": ["Toast bread", "Mash avocado", "Cook egg", "Assemble toast"]
+  },
+  {
+    "id": 3,
+    "title": "Banana Pancakes",
+    "image": "https://images.unsplash.com/photo-1588196749597-9ff075ee6b5b?w=300&h=200&fit=crop",
+    "rating": 4.7,
+    "time": "25 Minutes",
+    "servings": 2,
+    "category": "Breakfast",
+    "author": { "name": "Mary Lee", "avatar": "https://randomuser.me/api/portraits/women/55.jpg" },
+    "ingredients": ["1 banana", "1 cup flour", "1 cup milk", "1 egg"],
+    "steps": ["Mash banana", "Mix ingredients", "Cook pancakes", "Serve with syrup"]
+  },
+  {
+    "id": 4,
+    "title": "Greek Yogurt Parfait",
+    "image": "https://images.unsplash.com/photo-1592861952186-03d8f4b79a0d?w=300&h=200&fit=crop",
+    "rating": 4.8,
+    "time": "15 Minutes",
+    "servings": 1,
+    "category": "Breakfast",
+    "author": { "name": "Sara Kim", "avatar": "https://randomuser.me/api/portraits/women/66.jpg" },
+    "ingredients": ["1 cup yogurt", "1/2 cup granola", "Berries", "Honey"],
+    "steps": ["Layer yogurt", "Add granola", "Top with berries", "Drizzle honey"]
+  },
+  {
+    "id": 5,
+    "title": "Oatmeal with Fruits",
+    "image": "https://images.unsplash.com/photo-1603133872874-1ec1e22a0f2b?w=300&h=200&fit=crop",
+    "rating": 4.6,
+    "time": "20 Minutes",
+    "servings": 1,
+    "category": "Breakfast",
+    "author": { "name": "Linda Brown", "avatar": "https://randomuser.me/api/portraits/women/33.jpg" },
+    "ingredients": ["1 cup oats", "1 cup milk", "Fruits", "Nuts"],
+    "steps": ["Cook oats", "Add milk", "Top with fruits & nuts", "Serve warm"]
+  },
+  {
+    "id": 6,
+    "title": "Spinach & Feta Omelette",
+    "image": "https://images.unsplash.com/photo-1605472560243-9b1eec331986?w=300&h=200&fit=crop",
+    "rating": 4.7,
+    "time": "15 Minutes",
+    "servings": 1,
+    "category": "Breakfast",
+    "author": { "name": "Emma Wilson", "avatar": "https://randomuser.me/api/portraits/women/44.jpg" },
+    "ingredients": ["2 eggs", "Spinach", "Feta cheese", "Salt & Pepper"],
+    "steps": ["Beat eggs", "Cook spinach", "Add feta", "Cook omelette"]
+  },
+
+  {
+    "id": 7,
+    "title": "Wagyu Beef Cheeseburger",
+    "image": "https://images.unsplash.com/photo-1571091718767-18b5b1457add?w=300&h=200&fit=crop",
+    "rating": 4.9,
+    "time": "30 Minutes",
+    "servings": 6,
+    "category": "Meat",
+    "author": { "name": "John Smith", "avatar": "https://randomuser.me/api/portraits/men/33.jpg" },
+    "ingredients": ["200g Wagyu beef", "2 slices cheddar", "1 burger bun", "Lettuce"],
+    "steps": ["Grill beef", "Toast bun", "Assemble burger", "Serve"]
+  },
+  {
+    "id": 8,
+    "title": "Grilled Chicken with Veggies",
+    "image": "https://images.unsplash.com/photo-1600891964599-f61ba0e24092?w=300&h=200&fit=crop",
+    "rating": 4.8,
+    "time": "35 Minutes",
+    "servings": 4,
+    "category": "Meat",
+    "author": { "name": "Robert King", "avatar": "https://randomuser.me/api/portraits/men/44.jpg" },
+    "ingredients": ["200g chicken", "Broccoli", "Carrots", "Spices"],
+    "steps": ["Season chicken", "Grill chicken", "Steam veggies", "Serve together"]
+  },
+  {
+    "id": 9,
+    "title": "BBQ Ribs",
+    "image": "https://images.unsplash.com/photo-1562967916-eb82221dfb36?w=300&h=200&fit=crop",
+    "rating": 4.7,
+    "time": "45 Minutes",
+    "servings": 5,
+    "category": "Meat",
+    "author": { "name": "Kevin Lee", "avatar": "https://randomuser.me/api/portraits/men/55.jpg" },
+    "ingredients": ["Ribs", "BBQ sauce", "Salt & Pepper"],
+    "steps": ["Season ribs", "Cook ribs in oven", "Apply BBQ sauce", "Serve"]
+  },
+  {
+    "id": 10,
+    "title": "Steak with Garlic Butter",
+    "image": "https://images.unsplash.com/photo-1600891964599-f61ba0e24092?w=300&h=200&fit=crop",
+    "rating": 4.9,
+    "time": "40 Minutes",
+    "servings": 2,
+    "category": "Meat",
+    "author": { "name": "Samuel Green", "avatar": "https://randomuser.me/api/portraits/men/66.jpg" },
+    "ingredients": ["200g steak", "Garlic", "Butter", "Salt & Pepper"],
+    "steps": ["Season steak", "Cook steak", "Add garlic butter", "Serve"]
+  },
+  {
+    "id": 11,
+    "title": "Pork Chops with Herbs",
+    "image": "https://images.unsplash.com/photo-1600891964599-f61ba0e24092?w=300&h=200&fit=crop",
+    "rating": 4.8,
+    "time": "50 Minutes",
+    "servings": 4,
+    "category": "Meat",
+    "author": { "name": "Brian Clark", "avatar": "https://randomuser.me/api/portraits/men/77.jpg" },
+    "ingredients": ["2 pork chops", "Rosemary", "Salt & Pepper"],
+    "steps": ["Season chops", "Cook in oven", "Serve with herbs"]
+  },
+  {
+    "id": 12,
+    "title": "Lamb Kebabs",
+    "image": "https://images.unsplash.com/photo-1600891964599-f61ba0e24092?w=300&h=200&fit=crop",
+    "rating": 4.7,
+    "time": "55 Minutes",
+    "servings": 6,
+    "category": "Meat",
+    "author": { "name": "Daniel White", "avatar": "https://randomuser.me/api/portraits/men/88.jpg" },
+    "ingredients": ["500g lamb", "Spices", "Skewers"],
+    "steps": ["Marinate lamb", "Skewer meat", "Grill kebabs", "Serve"]
+  }
+]

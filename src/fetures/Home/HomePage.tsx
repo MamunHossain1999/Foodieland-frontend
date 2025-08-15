@@ -8,7 +8,7 @@ import RecipesList from "../AllRecepis/pages/RecipesList";
 
 const HomePage = () => {
     return (
-        <div className="border border-gray-200">
+        <div className="border border-gray-200 pb-12">
             <HeroSection />
             <CategoryPage/>
             <ChepSection/>

@@ -150,7 +150,7 @@ const ContactForm: React.FC = () => {
   return (
     <>
       <div className="mt-16">
-        <div className="container mx-auto">
+        <div className="container mx-auto px-4 lg:px-0">
           {/* Contact Us Header */}
           <div className="justify-center flex">
             <h3 className="text-4xl font-bold text-gray-800 mb-4">
@@ -165,12 +165,13 @@ const ContactForm: React.FC = () => {
                   src={contactImg}
                   alt="Contact Us"
                   className="w-[400px] h-[472px] object-cover rounded-3xl "
+                   data-aos="fade-up"
                 />
               </div>
 
               {/* Form Section */}
               <div className="p-4 lg:p-12 w-3/3">
-                <form onSubmit={handleSubmit} className="space-y-6">
+                <form onSubmit={handleSubmit} className="space-y-6 " data-aos="fade-up">
                   {/* Name and Email Row */}
                   <div className="grid md:grid-cols-2 gap-6">
                     {/* Name Field */}
@@ -361,7 +362,7 @@ const ContactForm: React.FC = () => {
           Check out the delicious recipes
         </h2>
 
-        <div>
+        <div className="mt-24 px-4 lg:px-0">
           <RelativeProductPage />
         </div>
       </div>

@@ -5,6 +5,7 @@ import { useGetAllArticlesQuery } from "./blogApi";
 import Article from "@/assets/blogImg/Rectangle 14 (2).jpg";
 import NewsLetterPage from "@/component/NewsLetterPage/NewsLetterPage";
 import { useNavigate } from "react-router";
+import "aos/dist/aos.css";
 
 interface Recipe {
   id: number;
@@ -17,22 +18,16 @@ interface Recipe {
 const BlogPage: React.FC = () => {
   const navigate = useNavigate();
   const [searchQuery, setSearchQuery] = useState<string>("");
-
-  //   pagination function
   const [currentPage, setCurrentPage] = useState(1);
 
-  //   ata mouse reload jeno na kore
+
+
   const handleSearch = (e: React.MouseEvent | React.KeyboardEvent) => {
     e.preventDefault();
     console.log("Searching for:", searchQuery);
   };
 
-  const {
-    data: articles,
-    isLoading,
-    isError,
-    error,
-  } = useGetAllArticlesQuery();
+  const { data: articles, isLoading, isError, error } = useGetAllArticlesQuery();
 
   if (isLoading)
     return <p className="text-center mt-10 text-gray-600">Loading...</p>;
@@ -76,7 +71,6 @@ const BlogPage: React.FC = () => {
       article.excerpt.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
-  //   Pagination
   const ItemPerPage = 5;
   const indexOfLastItem = currentPage * ItemPerPage;
   const indexOfFirstItem = indexOfLastItem - ItemPerPage;
@@ -87,6 +81,7 @@ const BlogPage: React.FC = () => {
   const handleCardClick = (id: number) => {
     navigate(`/blog/${id}`);
   };
+
   return (
     <div className="min-h-screen bg-white">
       {/* Header */}
@@ -116,7 +111,7 @@ const BlogPage: React.FC = () => {
               />
               <button
                 onClick={handleSearch}
-                className="absolute right-2 top-1/2 transform -translate-y-1/2  text-black px-4 py-1.5 rounded-md transition-colors"
+                className="absolute right-2 top-1/2 transform -translate-y-1/2 text-black px-4 py-1.5 rounded-md transition-colors"
               >
                 <Search size={16} />
               </button>
@@ -131,11 +126,13 @@ const BlogPage: React.FC = () => {
           <div className="lg:col-span-2">
             <div className="space-y-6">
               {currentItem?.map((article) => (
-                <button onClick={() => handleCardClick(article.id)} className="cursor-pointer">
-                  <article
-                    key={article.id}
-                    className="rounded-xl shadow-sm overflow-hidden"
-                  >
+                <button
+                  key={article.id}
+                  onClick={() => handleCardClick(article.id)}
+                  className="cursor-pointer"
+                  data-aos="fade-up"
+                >
+                  <article className="rounded-xl shadow-sm overflow-hidden">
                     <div className="flex flex-col md:flex-row">
                       <div className="md:w-64 h-48 md:h-auto">
                         <img
@@ -176,7 +173,6 @@ const BlogPage: React.FC = () => {
             {/* Pagination */}
             <div className="mt-10 flex justify-center">
               <nav className="flex items-center space-x-2">
-                {/* Prev button */}
                 <button
                   onClick={() =>
                     setCurrentPage((prev) => Math.max(prev - 1, 1))
@@ -187,7 +183,6 @@ const BlogPage: React.FC = () => {
                   Prev
                 </button>
 
-                {/* Page numbers */}
                 {pageNumbers.map((page) => (
                   <button
                     key={page}
@@ -202,7 +197,6 @@ const BlogPage: React.FC = () => {
                   </button>
                 ))}
 
-                {/* Next button */}
                 <button
                   onClick={() =>
                     setCurrentPage((prev) => Math.min(prev + 1, totalPages))
@@ -229,6 +223,7 @@ const BlogPage: React.FC = () => {
                   <div
                     key={recipe.id}
                     className="flex items-center space-x-4 hover:bg-gray-50 p-2 rounded-lg transition-colors cursor-pointer"
+                    data-aos="fade-left"
                   >
                     <img
                       src={recipe.image}

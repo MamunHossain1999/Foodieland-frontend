@@ -1,141 +1,216 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-
-import { Calendar, Facebook, Instagram, Twitter } from "lucide-react";
+import {
+  Calendar,
+  ChefHat,
+  Facebook,
+  Instagram,
+  Twitter,
+} from "lucide-react";
 import { useParams } from "react-router";
 import { useGetAllRecipesQuery } from "../AllRecepis/allRecipeApi";
 import NewsLetterPage from "@/component/NewsLetterPage/NewsLetterPage";
 import RelativeProductPage from "@/component/RelativeProductPage/RelativeProductPage";
-import cookieImg from "@/assets/bookpostImg/a18924703d3ad37c1b04115b9d86b67b82023a90.png";
+import RecipeDirections from "./RecipeDirections";
+import type { Recipe } from "../AllRecepis/type";
+import Article from "@/assets/blogImg/Rectangle 14 (2).jpg";
+import { useEffect } from "react";
+import AOS from "aos";
+import "aos/dist/aos.css";
+
+const recipes1: Recipe[] = [
+  {
+    id: 1,
+    title: "Chicken Meatballs with Green Beans",
+    image:
+      "https://i.ibb.co.com/vC1gj8Tj/f6995460a4292927efc17ee09591649f7a1b7364.png",
+    author: "Andreas Ryan",
+    category: "Main Course",
+  },
+  {
+    id: 2,
+    title: "Traditional Bolognese Ragu",
+    image:
+      "https://i.ibb.co.com/vC1gj8Tj/f6995460a4292927efc17ee09591649f7a1b7364.png",
+    author: "Isabella Chen",
+    category: "Pasta",
+  },
+  {
+    id: 3,
+    title: "Pork and Chive Chinese Dumplings",
+    image:
+      "https://i.ibb.co.com/vC1gj8Tj/f6995460a4292927efc17ee09591649f7a1b7364.png",
+    author: "Marcus Liu",
+    category: "Appetizer",
+  },
+];
 
 const RecipeDetails = () => {
   const { id } = useParams<{ id: string }>();
   const { data: recipes, isLoading, isError } = useGetAllRecipesQuery();
+
+  useEffect(() => {
+    AOS.init({
+      duration: 1000,
+      easing: "ease-in-out",
+      once: true,
+    });
+  }, []);
 
   if (isLoading) return <div>Loading...</div>;
   if (isError) return <div>Product not found</div>;
 
   const recipe = recipes?.find((ar) => String(ar.id) === id);
   if (!recipe) return <div className="text-center py-10">Recipe not found</div>;
-  console.log(recipe);
-  console.log(id);
 
   return (
     <>
-      <div className="container mx-auto px-4 py-10">
-        <h1 className="text-3xl font-bold text-gray-900 mb-4">
+      <div className="container mx-auto px-4 lg:px-0 py-10">
+        <h1
+          className="text-2xl md:text-3xl font-bold text-gray-900 mb-4"
+          data-aos="fade-up"
+        >
           {recipe.title}
         </h1>
-        <img
-          src={recipe.image}
-          alt={recipe.title}
-          className="w-full h-96 object-cover rounded-xl mb-6"
-        />
 
-        <div className="flex items-center gap-3 mb-4">
-          <span className="bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm">
-            {recipe?.category}
-          </span>
-          <Calendar size={16} />
-          <span className="text-gray-500">{recipe.date}</span>
+        {/* Author & Date */}
+        <div
+          className="flex flex-col md:flex-row items-start md:items-center justify-between gap-3"
+          data-aos="fade-up"
+          data-aos-delay={100}
+        >
+          <div className="flex flex-wrap items-center gap-3">
+            <span className="bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm">
+              {recipe?.category}
+            </span>
+            <Calendar size={16} />
+            <span className="text-gray-500">{recipe.date}</span>
+          </div>
+
+          <div className="flex flex-wrap items-center gap-3 text-sm md:text-base">
+            <span className="text-gray-500">Servings: {recipe.servings}</span>
+            <span className="text-gray-500">Time: {recipe.time}</span>
+          </div>
         </div>
 
-        <div className="flex items-center gap-3 mb-6">
-          <img
-            src={recipe?.author?.avatar}
-            alt={recipe.author?.name}
-            className="w-10 h-10 rounded-full"
-          />
-          <span className="text-gray-700">{recipe.author?.name}</span>
+        {/* Recipe Image + Table */}
+        <div
+          className="flex flex-col lg:flex-row gap-4 mt-6"
+          data-aos="fade-up"
+          data-aos-delay={200}
+        >
+          <div className="lg:flex-[2]" data-aos="zoom-in">
+            <img
+              src={recipe.image}
+              alt={recipe.title}
+              className="w-full h-64 sm:h-80 lg:h-96 object-cover rounded-xl"
+            />
+          </div>
+
+          <div
+            className="bg-[#E7FAFE] p-4 sm:p-6 rounded-xl lg:flex-1"
+            data-aos="fade-left"
+            data-aos-delay={300}
+          >
+            <h2 className="text-lg sm:text-xl font-semibold mb-4">
+              Nutrition Information
+            </h2>
+
+            <div className="overflow-x-auto rounded-xl shadow-sm">
+              <table className="min-w-full border-collapse">
+                <thead>
+                  <tr>
+                    <th className="text-left text-sm font-semibold text-gray-700 px-4 py-3 border-b w-1/2">
+                      Steps
+                    </th>
+                    <th className="text-left text-sm font-semibold text-gray-700 px-4 py-3 border-b w-1/2">
+                      Ingredients
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {Array.from({
+                    length: Math.max(
+                      recipe?.steps?.length || 0,
+                      recipe?.ingredients?.length || 0
+                    ),
+                  }).map((_, i) => (
+                    <tr key={i}>
+                      <td className="px-4 py-3 align-top text-sm text-gray-700 border-b">
+                        {recipe?.steps?.[i] || ""}
+                      </td>
+                      <td className="px-4 py-3 align-top text-sm text-gray-700 border-b">
+                        {recipe?.ingredients?.[i] || ""}
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
         </div>
-
-        <p className="text-gray-600 mb-8">{recipe.description}</p>
-
-        <h2 className="text-2xl font-semibold mb-3">Ingredients</h2>
-        <ul className="list-disc list-inside mb-8">
-          {recipe?.ingredients?.map((ing, i) => (
-            <li key={i} className="text-gray-700">
-              {ing}
-            </li>
-          ))}
-        </ul>
-
-        <h2 className="text-2xl font-semibold mb-3">Steps</h2>
-        <ol className="list-decimal list-inside space-y-2">
-          {recipe?.steps?.map((step, i) => (
-            <li key={i} className="text-gray-700">
-              {step}
-            </li>
-          ))}
-        </ol>
       </div>
 
-      {/* Sections */}
-      <div className="space-y-8 container mx-auto px-4 lg:px-0 py-10">
-        <div>
-          <h2 className="text-xl font-bold mb-2">
-            How did you start out in the food industry?
-          </h2>
-          <p className="text-gray-700">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur
-            eu risus id massa dapibus, sit amet gravida ligula.
-          </p>
+      {/* Description */}
+      <p
+        className="text-gray-600 mb-8 container mx-auto px-4"
+        data-aos="fade-up"
+        data-aos-delay={400}
+      >
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit...
+      </p>
+
+      {/* Main Content */}
+      <div
+        className="container mx-auto flex flex-col lg:flex-row gap-6 px-4 lg:px-0"
+        data-aos="fade-up"
+        data-aos-delay={500}
+      >
+        <div className="lg:flex-[2]" data-aos="fade-right">
+          <RecipeDirections />
         </div>
 
-        <div>
-          <h2 className="text-xl font-bold mb-2">
-            What do you like most about your job?
-          </h2>
-          <p className="text-gray-700">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur
-            eu risus id massa dapibus, sit amet gravida ligula.
-          </p>
-        </div>
-
-        <div>
-          <h2 className="text-xl font-bold mb-2">
-            Do you cook at home on your days off?
-          </h2>
-          <img
-            src={cookieImg}
-            alt="Cooking at home"
-            className="w-full rounded-xl mb-3 h-[500px]"
-          />
-          <p className="text-gray-700">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur
-            eu risus id massa dapibus, sit amet gravida ligula.
-          </p>
-        </div>
-
-        <div>
-          <h2 className="text-xl font-bold mb-2">
-            What would your advice be to young people looking to get their foot
-            in the door?
-          </h2>
-          <p className="text-gray-700">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur
-            eu risus id massa dapibus, sit amet gravida ligula.
-          </p>
-        </div>
-
-        <blockquote className="italic text-xl font-medium text-gray-900 border-l-4 border-gray-300 pl-4">
-          "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur ac
-          ultrices odio."
-        </blockquote>
-
-        <div>
-          <h2 className="text-xl font-semibold mb-2">
-            What is the biggest misconception that people have about being a
-            professional chef?
-          </h2>
-          <p className="text-gray-700">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur
-            eu risus id massa dapibus, sit amet gravida ligula.
-          </p>
+        {/* Sidebar */}
+        <div className="flex-1 space-y-8" data-aos="fade-left">
+          <div>
+            <h3 className="text-lg md:text-xl font-bold text-gray-900 mb-4 flex items-center">
+              <ChefHat className="mr-2 text-green-600" size={20} />
+              Tasty Recipes
+            </h3>
+            <div className="space-y-4">
+              {recipes1?.map((recipe) => (
+                <div
+                  key={recipe.id}
+                  className="flex flex-col sm:flex-row items-start sm:items-center space-y-2 sm:space-y-0 sm:space-x-4 hover:bg-gray-50 p-2 rounded-lg transition-colors cursor-pointer"
+                  data-aos="fade-up"
+                  data-aos-delay={100}
+                >
+                  <img
+                    src={recipe.image}
+                    alt={recipe.title}
+                    className="w-full sm:w-[180px] h-[120px] rounded-lg object-cover"
+                  />
+                  <h4 className="font-semibold text-gray-900 text-base md:text-lg line-clamp-2">
+                    {recipe.title}
+                  </h4>
+                </div>
+              ))}
+            </div>
+            <img
+              src={Article}
+              alt="adds"
+              className="mt-6 w-full rounded-lg"
+              data-aos="zoom-in"
+            />
+          </div>
         </div>
       </div>
 
       {/* Share Buttons */}
-      <div className="flex space-x-3 mt-10 container mx-auto px-4 lg:px-0 py-10">
+      <div
+        className="flex flex-wrap gap-3 mt-10 container mx-auto px-4 pb-12"
+        data-aos="fade-up"
+        data-aos-delay={600}
+      >
         <a
           href="#"
           className="p-3 rounded-full border border-gray-300 hover:bg-gray-100"
@@ -155,11 +230,19 @@ const RecipeDetails = () => {
           <Instagram className="text-gray-600" />
         </a>
       </div>
-      <div>
+
+      {/* Newsletter */}
+      <div className="w-full mx-auto" data-aos="fade-up" data-aos-delay={700}>
         <NewsLetterPage />
       </div>
-      <div className="container mx-auto px-4 pt-12">
-        <h3 className="text-3xl font-semibold mb-3 text-center mt-12">
+
+      {/* Relative Products */}
+      <div
+        className="container mx-auto px-4 lg:px-0 pt-12"
+        data-aos="fade-up"
+        data-aos-delay={800}
+      >
+        <h3 className="text-2xl md:text-3xl font-semibold mb-3 text-center">
           You may like these recipe too
         </h3>
         <RelativeProductPage />

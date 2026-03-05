@@ -1,53 +1,81 @@
-// RegisterPage.jsx
-import { useState } from "react";
-import { AiOutlineMail, AiOutlineLock, AiOutlineUser } from "react-icons/ai";
-import { Link } from "react-router";
-import register from "../../assets/register.png";
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { useState } from "react"
+import { AiOutlineMail, AiOutlineLock, AiOutlineUser } from "react-icons/ai"
+import { Link, useNavigate } from "react-router-dom"
+import { toast, ToastContainer } from "react-toastify"
+import "react-toastify/dist/ReactToastify.css"
+
+import register from "../../assets/register.png"
+import { useRegisterUserMutation } from "@/Redux/api/authApi"
 
 const RegisterPage = () => {
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [showPassword, setShowPassword] = useState(false);
+  const [firstName, setFirstName] = useState("")
+  const [lastName, setLastName] = useState("")
+  const [email, setEmail] = useState("")
+  const [password, setPassword] = useState("")
+  const [showPassword, setShowPassword] = useState(false)
+  const [role, setRole] = useState<"user" | "admin">("user") // default role
 
-  const handleRegister = (e: React.FormEvent) => {
-    e.preventDefault();
-    // TODO: Add register logic
-    console.log({ name, email, password });
-  };
+  const navigate = useNavigate()
+  const [registerUser, { isLoading }] = useRegisterUserMutation()
+
+  const handleRegister = async (e: React.FormEvent) => {
+    e.preventDefault()
+    if (!firstName || !lastName || !email || !password) {
+      toast.error("All fields are required")
+      return
+    }
+
+    try {
+      const result = await registerUser({
+        name: `${firstName} ${lastName}`,
+        email,
+        password,
+        role,
+      }).unwrap()
+
+      toast.success(`Welcome, ${result.name}! Account created as ${result.role}.`, {
+        position: "top-right",
+        autoClose: 2000,
+      })
+      navigate("/login")
+    } catch (err: any) {
+      toast.error(err.data?.message || "Registration failed", {
+        position: "top-right",
+        autoClose: 3000,
+      })
+    }
+  }
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-r from-green-100 to-white px-4">
+      <ToastContainer />
       <div className="max-w-6xl w-full bg-white shadow-lg rounded-xl flex flex-col lg:flex-row overflow-hidden">
         {/* Left: Form */}
         <div className="lg:w-1/2 p-10 flex flex-col justify-center">
           <h2 className="text-3xl font-bold mb-6">Sign Up</h2>
           <form onSubmit={handleRegister} className="space-y-4">
-            {/* Name */}
+            {/* First Name */}
             <div className="relative">
-              <AiOutlineUser
-                className="absolute left-3 top-3 text-gray-400"
-                size={20}
-              />
+              <AiOutlineUser className="absolute left-3 top-3 text-gray-400" size={20} />
               <input
                 type="text"
-                placeholder="Fast Name"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
+                placeholder="First Name"
+                value={firstName}
+                onChange={(e) => setFirstName(e.target.value)}
                 className="w-full border border-gray-300 rounded-lg py-3 pl-10 pr-3 focus:outline-none focus:ring-2 focus:ring-green-400"
                 required
               />
             </div>
+
+            {/* Last Name */}
             <div className="relative">
-              <AiOutlineUser
-                className="absolute left-3 top-3 text-gray-400"
-                size={20}
-              />
+              <AiOutlineUser className="absolute left-3 top-3 text-gray-400" size={20} />
               <input
                 type="text"
                 placeholder="Last Name"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
+                value={lastName}
+                onChange={(e) => setLastName(e.target.value)}
                 className="w-full border border-gray-300 rounded-lg py-3 pl-10 pr-3 focus:outline-none focus:ring-2 focus:ring-green-400"
                 required
               />
@@ -55,10 +83,7 @@ const RegisterPage = () => {
 
             {/* Email */}
             <div className="relative">
-              <AiOutlineMail
-                className="absolute left-3 top-3 text-gray-400"
-                size={20}
-              />
+              <AiOutlineMail className="absolute left-3 top-3 text-gray-400" size={20} />
               <input
                 type="email"
                 placeholder="Email"
@@ -71,10 +96,7 @@ const RegisterPage = () => {
 
             {/* Password */}
             <div className="relative">
-              <AiOutlineLock
-                className="absolute left-3 top-3 text-gray-400"
-                size={20}
-              />
+              <AiOutlineLock className="absolute left-3 top-3 text-gray-400" size={20} />
               <input
                 type={showPassword ? "text" : "password"}
                 placeholder="Password"
@@ -92,18 +114,45 @@ const RegisterPage = () => {
               </button>
             </div>
 
+            {/* Role Selection */}
+            <div className="flex items-center gap-4 mt-2">
+              <label className="flex items-center gap-2">
+                <input
+                  type="radio"
+                  name="role"
+                  value="user"
+                  checked={role === "user"}
+                  onChange={() => setRole("user")}
+                  className="accent-green-500"
+                />
+                User
+              </label>
+              <label className="flex items-center gap-2">
+                <input
+                  type="radio"
+                  name="role"
+                  value="admin"
+                  checked={role === "admin"}
+                  onChange={() => setRole("admin")}
+                  className="accent-green-500"
+                />
+                Admin
+              </label>
+            </div>
+
             {/* Terms */}
             <div className="text-sm text-gray-500">
-              <input type="checkbox" checked readOnly className="mr-2" />I agree
-              to Ultimate Trade Terms of use
+              <input type="checkbox" checked readOnly className="mr-2" />
+              I agree to Ultimate Trade Terms of use
             </div>
 
             {/* Submit */}
             <button
               type="submit"
-              className="w-full bg-gradient-to-r from-green-500 to-green-400 text-white py-3 rounded-lg font-semibold hover:opacity-90 transition"
+              disabled={isLoading}
+              className="w-full bg-gradient-to-r from-green-500 to-green-400 text-white py-3 rounded-lg font-semibold hover:opacity-90 transition disabled:opacity-50"
             >
-              Sign Up
+              {isLoading ? "Registering..." : "Sign Up"}
             </button>
 
             <div>
@@ -118,7 +167,6 @@ const RegisterPage = () => {
         {/* Right: Illustration */}
         <div className="lg:w-1/2 bg-green-50 flex items-center justify-center p-10 hidden sm:flex">
           <div className="space-y-4 text-center w-full">
-            {/* Illustration */}
             <img
               src={register}
               alt="Sign Up Illustration"
@@ -128,7 +176,7 @@ const RegisterPage = () => {
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default RegisterPage;
+export default RegisterPage

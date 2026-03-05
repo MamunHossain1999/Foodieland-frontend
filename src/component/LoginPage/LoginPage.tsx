@@ -1,17 +1,35 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 // LoginPage.jsx
 import { useState } from "react";
 import { AiOutlineMail, AiOutlineLock } from "react-icons/ai";
-import login from "../../assets/login.png";
-import { Link } from "react-router";
+import loginImg from "../../assets/login.png";
+import { Link, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+import { useLoginUserMutation } from "@/Redux/api/authApi";
+
+ // adjust path your api
 
 const LoginPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
 
-  const handleLogin = (e: React.FormEvent) => {
+  const navigate = useNavigate();
+
+  // RTK Query mutation
+  const [loginUser, { isLoading }] = useLoginUserMutation();
+
+  const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log({ email, password });
+    try {
+      const res = await loginUser({ email, password }).unwrap();
+      // success toast
+      toast.success(`Welcome back, ${res.name}!`);
+      // redirect to dashboard or homepage
+      navigate("/");
+    } catch (err: any) {
+      toast.error(err?.data?.message || "Login failed");
+    }
   };
 
   return (
@@ -23,10 +41,7 @@ const LoginPage = () => {
           <form onSubmit={handleLogin} className="space-y-4">
             {/* Email */}
             <div className="relative">
-              <AiOutlineMail
-                className="absolute left-3 top-3 text-gray-400"
-                size={20}
-              />
+              <AiOutlineMail className="absolute left-3 top-3 text-gray-400" size={20} />
               <input
                 type="email"
                 placeholder="Login / Email"
@@ -39,10 +54,7 @@ const LoginPage = () => {
 
             {/* Password */}
             <div className="relative">
-              <AiOutlineLock
-                className="absolute left-3 top-3 text-gray-400"
-                size={20}
-              />
+              <AiOutlineLock className="absolute left-3 top-3 text-gray-400" size={20} />
               <input
                 type={showPassword ? "text" : "password"}
                 placeholder="Password"
@@ -62,20 +74,20 @@ const LoginPage = () => {
 
             {/* Terms */}
             <div className="text-sm text-gray-500">
-              <input type="checkbox" checked readOnly className="mr-2" />I agree
-              to Ultimate Trade Terms of use
+              <input type="checkbox" checked readOnly className="mr-2" />I agree to Ultimate Trade Terms of use
             </div>
 
             {/* Submit */}
             <button
               type="submit"
-              className="w-full bg-gradient-to-r from-blue-500 to-blue-400 text-white py-3 rounded-lg font-semibold hover:opacity-90 transition"
+              disabled={isLoading}
+              className="w-full bg-gradient-to-r from-blue-500 to-blue-400 text-white py-3 rounded-lg font-semibold hover:opacity-90 transition disabled:opacity-50"
             >
-              Sign In
+              {isLoading ? "Signing In..." : "Sign In"}
             </button>
 
             <div>
-              Already have an account?{" "}
+              Don't have an account?{" "}
               <Link to="/register" className="text-blue-500 hover:underline">
                 Register here
               </Link>
@@ -84,11 +96,10 @@ const LoginPage = () => {
         </div>
 
         {/* Right: Illustration */}
-        {/* Right: Illustration */}
         <div className="lg:w-1/2 bg-blue-50 flex items-center justify-center p-6 hidden sm:flex">
           <div className="w-full h-full flex items-center justify-center">
             <img
-              src={login}
+              src={loginImg}
               alt="login illustration"
               className="max-w-full max-h-[400px] object-contain rounded-lg"
             />

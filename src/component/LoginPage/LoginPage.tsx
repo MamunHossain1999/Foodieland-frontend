@@ -7,7 +7,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { useLoginUserMutation } from "@/Redux/api/authApi";
 
- // adjust path your api
+// adjust path your api
 
 const LoginPage = () => {
   const [email, setEmail] = useState("");
@@ -41,7 +41,10 @@ const LoginPage = () => {
           <form onSubmit={handleLogin} className="space-y-4">
             {/* Email */}
             <div className="relative">
-              <AiOutlineMail className="absolute left-3 top-3 text-gray-400" size={20} />
+              <AiOutlineMail
+                className="absolute left-3 top-3 text-gray-400"
+                size={20}
+              />
               <input
                 type="email"
                 placeholder="Login / Email"
@@ -54,7 +57,10 @@ const LoginPage = () => {
 
             {/* Password */}
             <div className="relative">
-              <AiOutlineLock className="absolute left-3 top-3 text-gray-400" size={20} />
+              <AiOutlineLock
+                className="absolute left-3 top-3 text-gray-400"
+                size={20}
+              />
               <input
                 type={showPassword ? "text" : "password"}
                 placeholder="Password"
@@ -71,10 +77,19 @@ const LoginPage = () => {
                 {showPassword ? "Hide" : "Show"}
               </button>
             </div>
-
+            {/* Forgot Password */}
+            <div className="text-right">
+              <Link
+                to="/forgot-password"
+                className="text-sm text-blue-500 hover:underline"
+              >
+                Forgot Password?
+              </Link>
+            </div>
             {/* Terms */}
             <div className="text-sm text-gray-500">
-              <input type="checkbox" checked readOnly className="mr-2" />I agree to Ultimate Trade Terms of use
+              <input type="checkbox" checked readOnly className="mr-2" />I agree
+              to Ultimate Trade Terms of use
             </div>
 
             {/* Submit */}

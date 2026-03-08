@@ -34,6 +34,7 @@ const UpdateProfile = () => {
         name: user.name || "",
         email: user.email || "",
         password: "",
+        avatar: user.avatar || "",
       });
     }
   }, [user]);

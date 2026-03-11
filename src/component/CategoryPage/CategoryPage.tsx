@@ -1,9 +1,9 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { useGetAllRecipesQuery } from "@/fetures/AllRecepis/allRecipeApi";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router";
 import AOS from "aos";
 import "aos/dist/aos.css";
+import { useGetAllRecipesQuery, type Recipe } from "@/Redux/api/recipeApi";
 
 interface Category {
   name: string;
@@ -23,21 +23,30 @@ const categories: Category[] = [
 const CategoryPage = () => {
   const navigate = useNavigate();
   const [activeCategory, setActiveCategory] = useState<string>("Breakfast");
-  const { data: recipes, isLoading, isError, error } = useGetAllRecipesQuery();
+
+  const { data, isLoading, isError, error } = useGetAllRecipesQuery();
+console.log(data)
+  // Safe recipes array
+  const recipes: Recipe[] = Array.isArray(data)
+  ? data
+  : Array.isArray((data as any)?.recipes)
+  ? (data as any).recipes
+  : [];
 
   useEffect(() => {
     AOS.init({ duration: 800, once: false });
   }, []);
 
   const filteredRecipes = activeCategory
-    ? recipes?.filter((recipe) => recipe.category === activeCategory)
+    ? recipes.filter((recipe: Recipe) => recipe.category === activeCategory)
     : recipes;
 
   if (isLoading) return <p className="text-center mt-10">Loading...</p>;
+
   if (isError)
     return (
       <p className="text-center mt-10 text-red-500">
-        Error: {(error as any).message}
+        Error: {(error as any)?.message || "Something went wrong"}
       </p>
     );
 
@@ -46,16 +55,19 @@ const CategoryPage = () => {
       {/* Categories Section */}
       <section>
         <div className="flex items-center justify-between mb-12">
-          <h3 className="text-3xl font-bold text-gray-900" data-aos="fade-down">Categories</h3>
+          <h3 className="text-3xl font-bold text-gray-900" data-aos="fade-down">
+            Categories
+          </h3>
           <button
             onClick={() => navigate("/recipes")}
             className="font-medium text-blue-600 cursor-pointer hover:text-blue-700 hover:underline"
             data-aos="fade-down"
-            data-aos-delay="100"
+            data-aos-delay={100}
           >
             View all categories
           </button>
         </div>
+
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6 mb-14">
           {categories.map((category, index) => (
             <div
@@ -65,7 +77,7 @@ const CategoryPage = () => {
                 activeCategory === category.name ? "ring-4 ring-blue-500" : ""
               }`}
               data-aos="zoom-in"
-              data-aos-delay={index * 100} // stagger effect
+              data-aos-delay={index * 100}
             >
               <div className="text-4xl mb-3">{category.icon}</div>
               <p className="font-semibold text-gray-900">{category.name}</p>
@@ -77,34 +89,42 @@ const CategoryPage = () => {
       {/* Recipes Section */}
       <section>
         <div className="text-center mb-12 px-4">
-          <h3 className="font-semibold text-2xl sm:text-3xl md:text-4xl lg:text-[48px] text-[#000000]" data-aos="fade-up">
+          <h3
+            className="font-semibold text-2xl sm:text-3xl md:text-4xl lg:text-[48px] text-[#000000]"
+            data-aos="fade-up"
+          >
             Simple and tasty recipes
           </h3>
-          <p className="text-[#00000099] font-normal text-sm sm:text-base max-w-[706px] mx-auto mt-4" data-aos="fade-up" data-aos-delay="100">
+          <p
+            className="text-[#00000099] font-normal text-sm sm:text-base max-w-[706px] mx-auto mt-4"
+            data-aos="fade-up"
+            data-aos-delay={100}
+          >
             Lorem ipsum dolor sit amet, consectetuipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliquut enim ad minim.
           </p>
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
-          {filteredRecipes?.map((recipe, index) => (
-            <div
-              key={recipe.id}
-              className="bg-[#E7F9FD] rounded-[30px] shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300"
-              data-aos="fade-up"
-              data-aos-delay={index * 100} // stagger each recipe
-            >
-              <img
-                src={recipe.image}
-                alt={recipe.title}
-                className="w-full h-56 object-cover p-4 rounded-[30px]"
-                loading="lazy"
-              />
-              <div className="p-4">
-                <h3 className="text-lg font-semibold text-gray-800">{recipe.title}</h3>
+          {filteredRecipes.length > 0 ? (
+            filteredRecipes?.map((recipe: Recipe , index: number) => (
+              <div
+                key={recipe._id}
+                className="bg-[#E7F9FD] rounded-[30px] shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300"
+                data-aos="fade-up"
+                data-aos-delay={index * 100}
+              >
+                <img
+                  src={recipe.image}
+                  alt={recipe.title}
+                  className="w-full h-56 object-cover p-4 rounded-[30px]"
+                  loading="lazy"
+                />
+                <div className="p-4">
+                  <h3 className="text-lg font-semibold text-gray-800">{recipe.title}</h3>
+                </div>
               </div>
-            </div>
-          ))}
-          {filteredRecipes?.length === 0 && (
+            ))
+          ) : (
             <p className="col-span-full text-center text-gray-600" data-aos="fade-up">
               No recipes found.
             </p>

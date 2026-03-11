@@ -29,7 +29,7 @@ const Navbar = () => {
   };
 
   return (
-    <header className="bg-white shadow-sm">
+    <header className="bg-white sticky top-0  z-50 shadow-sm">
       <nav className="container mx-auto px-4 lg:px-0 py-6">
 
         <div className="flex items-center justify-between">

@@ -6,11 +6,13 @@ import { router } from './route/router.tsx'
 import { RouterProvider } from 'react-router/dom'
 import { Provider } from 'react-redux'
 import { store } from './Redux/store.ts'
+import { ToastContainer } from 'react-toastify'
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <Provider store={store}>
       <RouterProvider router={router} />
+           <ToastContainer />
     </Provider>
   </StrictMode>,
 )

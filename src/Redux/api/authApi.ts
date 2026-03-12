@@ -47,6 +47,12 @@ export const authApi = createApi({
       providesTags: ["Auth"],
     }),
 
+    // all users for admin
+    getAllUsers: builder.query<any, void>({
+      query: () => "/auth/users",
+      providesTags: ["Auth"],
+    }),
+
     // Update Profile
     updateProfile: builder.mutation<
       any,
@@ -107,6 +113,25 @@ export const authApi = createApi({
         body,
       }),
     }),
+
+        // Update User Role (Admin)
+    updateUserRole: builder.mutation<any, { id: string; role: "user" | "admin" }>({
+      query: ({ id, role }) => ({
+        url: `/auth/user/${id}/role`,
+        method: "PUT",
+        body: { role },
+      }),
+      invalidatesTags: ["Auth"],
+    }),
+
+    // Delete User (Admin)
+    deleteUser: builder.mutation<any, string>({
+      query: (id) => ({
+        url: `/auth/user/${id}`,
+        method: "DELETE",
+      }),
+      invalidatesTags: ["Auth"],
+    }),
   }),
 });
 
@@ -121,4 +146,7 @@ export const {
   useResetPasswordMutation,
   useVerifyOtpMutation,
   useResendOtpMutation,
+  useGetAllUsersQuery,
+  useUpdateUserRoleMutation,
+  useDeleteUserMutation
 } = authApi;

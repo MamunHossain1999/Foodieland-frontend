@@ -17,7 +17,7 @@ export interface Recipe {
 
 export const recipeApi = createApi({
   reducerPath: "recipeApi",
-  baseQuery: fetchBaseQuery({ baseUrl: "http://localhost:5000/api" }),
+  baseQuery: fetchBaseQuery({ baseUrl: "https://foodieland-server-3z3p.vercel.app/api" }),
   tagTypes: ["Recipe"],
   endpoints: (builder) => ({
     // Get All Recipes

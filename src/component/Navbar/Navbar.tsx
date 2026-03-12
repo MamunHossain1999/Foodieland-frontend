@@ -29,11 +29,9 @@ const Navbar = () => {
   };
 
   return (
-    <header className="bg-white sticky top-0  z-50 shadow-sm">
+    <header className="bg-white sticky top-0 z-50 shadow-sm">
       <nav className="container mx-auto px-4 lg:px-0 py-6">
-
         <div className="flex items-center justify-between">
-
           {/* Logo */}
           <h1 className="font-lobster text-2xl text-black">Foodieland</h1>
 
@@ -53,21 +51,33 @@ const Navbar = () => {
                 {item.label}
               </Link>
             ))}
+
+            {/* Show MyOrders only if user is logged in */}
+            {user && (
+              <Link
+                to="/my/orders"
+                onClick={() => handleClick("/my/orders")}
+                className={`${
+                  active === "/my/orders"
+                    ? "text-blue-600 font-semibold"
+                    : "text-black hover:text-gray-800"
+                }`}
+              >
+                MyOrders
+              </Link>
+            )}
           </div>
 
           {/* Right Side */}
           <div className="flex items-center gap-4">
-
             {/* Social Icons */}
             <div className="hidden md:flex items-center gap-4">
               <Link to="https://facebook.com">
                 <Facebook className="w-5 h-5 text-gray-600 hover:text-blue-600" />
               </Link>
-
               <Link to="https://twitter.com">
                 <Twitter className="w-5 h-5 text-gray-600 hover:text-blue-400" />
               </Link>
-
               <Link to="https://instagram.com">
                 <Instagram className="w-5 h-5 text-gray-600 hover:text-pink-600" />
               </Link>
@@ -78,7 +88,6 @@ const Navbar = () => {
               <span className="text-sm">Loading...</span>
             ) : user ? (
               <div className="flex items-center gap-3">
-
                 {/* Admin Button */}
                 {user?.role === "admin" && (
                   <Link
@@ -88,7 +97,6 @@ const Navbar = () => {
                     Admin
                   </Link>
                 )}
-
                 {/* Avatar */}
                 <Link to="/profile">
                   <img
@@ -97,7 +105,6 @@ const Navbar = () => {
                     className="w-9 h-9 rounded-full object-cover hover:opacity-80"
                   />
                 </Link>
-
               </div>
             ) : (
               <Link
@@ -111,14 +118,9 @@ const Navbar = () => {
             {/* Mobile Menu Button */}
             <div className="md:hidden">
               <button onClick={() => setIsOpen(!isOpen)}>
-                {isOpen ? (
-                  <X className="w-6 h-6" />
-                ) : (
-                  <Menu className="w-6 h-6" />
-                )}
+                {isOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
               </button>
             </div>
-
           </div>
         </div>
 
@@ -139,9 +141,23 @@ const Navbar = () => {
                 {item.label}
               </Link>
             ))}
+
+            {/* Mobile MyOrders */}
+            {user && (
+              <Link
+                to="/my/orders"
+                onClick={() => handleClick("/my/orders")}
+                className={`block py-2 border-b ${
+                  active === "/my/orders"
+                    ? "text-blue-600 font-semibold"
+                    : "text-gray-700"
+                }`}
+              >
+                MyOrders
+              </Link>
+            )}
           </div>
         )}
-
       </nav>
     </header>
   );

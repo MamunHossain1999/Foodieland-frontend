@@ -11,7 +11,7 @@ const Footer = () => {
               Foodieland
             </h4>
             <p className="text-[#00000099] text-base">
-              Lorem ipsum dolor sit amet, consectetuipisicing elit
+               Explore our collection of delicious recipes and start cooking today!
             </p>
           </div>
           <div className="flex flex-wrap justify-center lg:justify-start gap-x-8 gap-y-4 max-w-lg mx-auto lg:mx-0">

@@ -11,4 +11,25 @@ export default defineConfig({
       "@": path.resolve(__dirname, "./src"),
     },
   },
-})
+  build: {
+    outDir: 'dist',
+    sourcemap: false,
+    rollupOptions: {
+      output: {
+        manualChunks: undefined,
+      },
+    },
+  },
+  // --- add this server proxy section ---
+  server: {
+    proxy: {
+      // proxy every request starting with /api to your backend
+      '/api': {
+        target: 'http://localhost:5000',
+        changeOrigin: true,
+        secure: false, // dev: false because backend likely http
+        ws: false,
+      },
+    },
+  },
+});

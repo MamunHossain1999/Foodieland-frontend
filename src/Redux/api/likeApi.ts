@@ -12,7 +12,7 @@ export interface LikeCountResponse {
 export const likeApi = createApi({
   reducerPath: "likeApi",
   baseQuery: fetchBaseQuery({
-    baseUrl: "http://localhost:5000/api",
+    baseUrl: "https://foodieland-server.vercel.app/api",
     credentials: "include", 
   }),
   tagTypes: ["Like"],

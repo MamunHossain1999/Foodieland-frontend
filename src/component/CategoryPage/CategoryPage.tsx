@@ -25,7 +25,7 @@ const CategoryPage = () => {
   const [activeCategory, setActiveCategory] = useState<string>("Breakfast");
 
   const { data, isLoading, isError, error } = useGetAllRecipesQuery();
-console.log(data)
+
   // Safe recipes array
   const recipes: Recipe[] = Array.isArray(data)
   ? data

@@ -48,6 +48,7 @@ const LoginPage = () => {
               <input
                 type="email"
                 placeholder="Login / Email"
+                autoComplete="current-email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 className="w-full border border-gray-300 rounded-lg py-3 pl-10 pr-3 focus:outline-none focus:ring-2 focus:ring-blue-400"
@@ -64,6 +65,7 @@ const LoginPage = () => {
               <input
                 type={showPassword ? "text" : "password"}
                 placeholder="Password"
+                autoComplete="current-password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 className="w-full border border-gray-300 rounded-lg py-3 pl-10 pr-10 focus:outline-none focus:ring-2 focus:ring-blue-400"

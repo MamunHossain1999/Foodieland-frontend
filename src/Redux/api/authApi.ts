@@ -4,7 +4,7 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 export const authApi = createApi({
   reducerPath: "authApi",
   baseQuery: fetchBaseQuery({
-    baseUrl: "https://foodieland-server-3z3p.vercel.app/api",
+    baseUrl: "https://foodieland-server.vercel.app/api",
     credentials: "include", // cookie পাঠানোর জন্য
   }),
   tagTypes: ["Auth"],

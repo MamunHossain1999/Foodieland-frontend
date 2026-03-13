@@ -17,12 +17,19 @@ export interface Recipe {
 
 export const recipeApi = createApi({
   reducerPath: "recipeApi",
-  baseQuery: fetchBaseQuery({ baseUrl: "https://foodieland-server-3z3p.vercel.app/api" }),
+  baseQuery: fetchBaseQuery({
+    baseUrl: "https://foodieland-server.vercel.app/api",
+    credentials: "include",
+  }),
   tagTypes: ["Recipe"],
   endpoints: (builder) => ({
     // Get All Recipes
-    getAllRecipes: builder.query<Recipe[], { page?: number; limit?: number } | void>({
-      query: ({ page = 1, limit = 20 } = {}) => `/all/recipes?page=${page}&limit=${limit}`,
+    getAllRecipes: builder.query<
+      Recipe[],
+      { page?: number; limit?: number } | void
+    >({
+      query: ({ page = 1, limit = 20 } = {}) =>
+        `/all/recipes?page=${page}&limit=${limit}`,
       providesTags: ["Recipe"],
     }),
 
@@ -33,7 +40,15 @@ export const recipeApi = createApi({
     }),
 
     // Update Recipe
-    updateRecipe: builder.mutation<Recipe, { id: string; formData: Partial<Omit<Recipe, "_id" | "createdAt" | "updatedAt">> | FormData }>({
+    updateRecipe: builder.mutation<
+      Recipe,
+      {
+        id: string;
+        formData:
+          | Partial<Omit<Recipe, "_id" | "createdAt" | "updatedAt">>
+          | FormData;
+      }
+    >({
       query: ({ id, formData }) => ({
         url: `/update/${id}`,
         method: "PUT",

@@ -36,7 +36,7 @@ interface CreateOrderRequest {
 export const orderApi = createApi({
   reducerPath: "orderApi",
   baseQuery: fetchBaseQuery({
-    baseUrl: "http://localhost:5000/api",
+    baseUrl: "https://foodieland-server.vercel.app/api" ,
     credentials: "include",
   }),
   tagTypes: ["Order"],
